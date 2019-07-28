@@ -1,6 +1,7 @@
 import pygame
 from src.snake import Snake
 from src.food import Food
+from src.hud import hud
 
 from src.colours import *
 
@@ -20,6 +21,7 @@ done = False
 clock = pygame.time.Clock()
 snake = Snake()
 food = Food()
+HUD = hud()
  
 
 # -------- Main Program Loop -----------
@@ -48,12 +50,14 @@ while not done:
         if snake.head_location == food.location:
             snake.eat()
             food.consumed()
+        HUD.set_score(snake.length)
         
     
     # --- Drawing
     if snake.alive:
         snake.draw(screen)
         food.draw(screen)
+        HUD.draw(screen)
     else:
         font = pygame.font.Font('freesansbold.ttf', 32)
         text = font.render(f"Snake Dead. Score: {snake.length}", False, RED)
