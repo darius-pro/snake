@@ -1,8 +1,8 @@
 import pygame
+
 from src.snake import Snake
 from src.food import Food
 from src.hud import hud
-
 from src.colours import *
 
 pygame.init()
@@ -12,6 +12,8 @@ WIDTH = 600
 HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Snake")
+
+DIFFICULTY = 10
 
 # Loop until the user clicks the close button.
 done = False
@@ -39,8 +41,10 @@ while not done:
             elif event.key == pygame.K_DOWN and not snake.turned:
                 snake.down()
             elif event.key == pygame.K_q:
+                """Restart Game"""
                 del snake
                 snake = Snake()
+                HUD.reset_score()
 
     screen.fill(WHITE)
     # --- Game logic
@@ -49,7 +53,7 @@ while not done:
         if snake.head_location == food.location:
             snake.eat()
             food.consumed()
-        HUD.set_score(snake.length)
+            HUD.add_score(DIFFICULTY)
     # --- Drawing
     if snake.alive:
         snake.draw(screen)
@@ -57,14 +61,14 @@ while not done:
         HUD.draw(screen)
     else:
         font = pygame.font.Font('freesansbold.ttf', 32)
-        text = font.render(f"Snake Dead. Score: {snake.length}", False, RED)
+        text = font.render(f"Snake Dead. Score: {HUD.score}", False, RED)
         screen.blit(text,(10,10))
  
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
  
     # --- Limit to 60 frames per second
-    clock.tick(6)
+    clock.tick(DIFFICULTY)
 
 pygame.quit()
 

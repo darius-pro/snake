@@ -1,4 +1,4 @@
-import pygame
+from pygame import Surface, draw
 
 from src.colours import *
 
@@ -23,7 +23,7 @@ class Snake:
         self.turned = False
 
     def __draw_body(self ,screen):
-        surf = pygame.Surface((40, 40))
+        surf = Surface((40, 40))
         surf.fill(BLACK)
         rect = surf.get_rect()
         for i, val in enumerate(self.snake_matrix):
@@ -39,13 +39,13 @@ class Snake:
         if self.direction in ["left", "right"]:
             center1 = (self.head_location[0]-20,self.head_location[1]+15-40)
             center2 = (self.head_location[0]-20, self.head_location[1]+25-40)
-            pygame.draw.circle(screen, eye_colour, center1, eye_radius)
-            pygame.draw.circle(screen, eye_colour, center2, eye_radius)
+            draw.circle(screen, eye_colour, center1, eye_radius)
+            draw.circle(screen, eye_colour, center2, eye_radius)
         if self.direction in ["up", "down"]:
             center1 = (self.head_location[0]-40+15,self.head_location[1]-20)
             center2 = (self.head_location[0]-40+25, self.head_location[1]-20)
-            pygame.draw.circle(screen, eye_colour, center1, eye_radius)
-            pygame.draw.circle(screen, eye_colour, center2, eye_radius)
+            draw.circle(screen, eye_colour, center1, eye_radius)
+            draw.circle(screen, eye_colour, center2, eye_radius)
 
     def draw(self, screen):
         self.__draw_body(screen)
