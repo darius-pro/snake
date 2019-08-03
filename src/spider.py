@@ -39,11 +39,6 @@ class Spider:
         else:
             self.__generate()
 
-    def __draw_consumed_popup(self, screen):
-        w = self.location[0]-40
-        h = self.location[1]-40
-
-
     def consumed(self):
         self.alive = False
         self.last_score = self.score()
