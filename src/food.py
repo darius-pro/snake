@@ -1,7 +1,12 @@
-from pygame import draw
+from pygame import draw, image
 
 from random import randint
 from src.colours import *
+from src.directory import *
+
+
+food_image = image.load(os.path.join(IMAGE_DIR,"leaf.png"))
+
 
 class Food:
 
@@ -18,9 +23,9 @@ class Food:
         return
 
     def draw(self, screen):
-        w = self.location[0] - 20
-        h = self.location[1] - 20
-        draw.circle(screen, BROWN, (w, h), 20)
+        w = self.location[0]-40
+        h = self.location[1]-40
+        screen.blit(food_image, (w,h))
         return
 
 
