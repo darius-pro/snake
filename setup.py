@@ -6,7 +6,7 @@ setup(
     version='0.0.1',  # Required
     description='A simple python snake game',  # Optional
     url='https://github.com/darius-pro/snake',  # Optional
-    author='Darius Mehta',  # Optional
+    author='Darius',  # Optional
     scripts=['snake'],
     classifiers=[
         'Programming Language :: Python :: 3.6', 
