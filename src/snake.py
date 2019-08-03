@@ -20,6 +20,7 @@ class Snake:
         self.length = 1
         self.head_location = [280,280]
         self.snake_matrix = location_start()
+        self.turned = False
 
     def draw(self ,screen):
         surf = pygame.Surface((40, 40))
@@ -34,18 +35,33 @@ class Snake:
 
     # Change snake direction
     def right(self):
-        self.direction = "right"
+        if not self.direction == "left" and not self.turned:
+            self.direction = "right"
+            self.turned = True
 
     def left(self):
-        self.direction = "left"
+        if not self.direction == "right" and not self.turned:
+            self.direction = "left"
+            self.turned = True
 
     def up(self):
-        self.direction = "up"
+        if not self.direction == "down" and not self.turned:
+            self.direction = "up"
+            self.turned = True
 
     def down(self):
-        self.direction = "down"
+        if not self.direction == "up" and not self.turned:
+            self.direction = "down"
+            self.turned = True
 
     # Simulate snake process
+    def __collision_check(self):
+        for i, val in enumerate(self.snake_matrix):
+            for j, val2 in enumerate(self.snake_matrix[i]):
+                if self.head_location == [(i+1)*40, (j+1)*40] and (0 < self.snake_matrix[i][j] < self.length):
+                    return True
+        return False
+
     def __move_head(self):
         """Add direction to the matrix"""
         if self.direction == "left":
@@ -56,8 +72,14 @@ class Snake:
             self.head_location[1]-=40
         elif self.direction == "down":
             self.head_location[1]+=40
-        i : int = self.head_location[0]/40 - 1
-        j : int = self.head_location[1]/40 - 1
+        i = self.head_location[0]/40 - 1
+        j = self.head_location[1]/40 - 1
+
+        # Check for collisions
+        if self.__collision_check():
+            self.alive = False
+
+        # Check within box
         if (0 <= i < 15) and (0 <= j < 15):
             self.snake_matrix[int(i)][int(j)] += self.length
         else:
@@ -69,12 +91,13 @@ class Snake:
                 if self.snake_matrix[i][j] > 0:
                     self.snake_matrix[i][j] -= 1 
 
-
     def simulate(self):
-
         self.__move_body()
         self.__move_head()
-        
+        self.turned = False
 
     def eat(self):
         self.length += 1
+
+
+

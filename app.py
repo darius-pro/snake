@@ -13,12 +13,11 @@ HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Snake")
 
-
 # Loop until the user clicks the close button.
 done = False
- 
-# Used to manage how fast the screen updates
+
 clock = pygame.time.Clock()
+
 snake = Snake()
 food = Food()
 HUD = hud()
@@ -31,13 +30,13 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done = True # Flag that we are done so we exit this loop
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT and not snake.turned:
                 snake.left()
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and not snake.turned:
                 snake.right()
-            elif event.key == pygame.K_UP:
+            elif event.key == pygame.K_UP and not snake.turned:
                 snake.up()
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and not snake.turned:
                 snake.down()
             elif event.key == pygame.K_q:
                 del snake
@@ -51,8 +50,6 @@ while not done:
             snake.eat()
             food.consumed()
         HUD.set_score(snake.length)
-        
-    
     # --- Drawing
     if snake.alive:
         snake.draw(screen)
