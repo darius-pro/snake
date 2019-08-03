@@ -1,9 +1,11 @@
-from pygame import draw, image, font
+import os
 
+from pygame import draw, image, font
 from random import randint
 from src.colours import *
+from src.directory import *
 
-spider_image = image.load("src/image/spider.png")
+spider_image = image.load(os.path.join(IMAGE_DIR,"spider.png"))
 font.init()
 
 class Spider:
