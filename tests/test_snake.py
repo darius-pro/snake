@@ -1,5 +1,7 @@
 from src.snake import location_start, Snake
 
+DIRECTIONS = ["left", "right", "up", "down"]
+
 def test_location_start():
     assert location_start() == [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -18,24 +20,57 @@ def test_location_start():
                                [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 def test_right():
-    snake = Snake()
-    snake.right()
-    assert snake.direction == "right"
+    mapping = {
+              "right" : "right",
+              "left" : "left",
+              "up" : "right",
+              "down" : "right"
+              }
+    for key in DIRECTIONS:
+      snake = Snake()
+      snake.direction = key
+      snake.right()
+      assert snake.direction == mapping[key]
+
 
 def test_left():
-    snake = Snake()
-    snake.left()
-    assert snake.direction == "left"
+    mapping = {
+              "right" : "right",
+              "left" : "left",
+              "up" : "left",
+              "down" : "left"
+              }
+    for key in DIRECTIONS:
+      snake = Snake()
+      snake.direction = key
+      snake.left()
+      assert snake.direction == mapping[key]
 
 def test_down():
-    snake = Snake()
-    snake.down()
-    assert snake.direction == "down"
+    mapping = {
+              "right" : "down",
+              "left" : "down",
+              "up" : "up",
+              "down" : "down"
+              }
+    for key in DIRECTIONS:
+      snake = Snake()
+      snake.direction = key
+      snake.down()
+      assert snake.direction == mapping[key]
 
 def test_up():
-    snake = Snake()
-    snake.up()
-    assert snake.direction == "up"
+    mapping = {
+              "right" : "up",
+              "left" : "up",
+              "up" : "up",
+              "down" : "down"
+              }
+    for key in DIRECTIONS:
+      snake = Snake()
+      snake.direction = key
+      snake.up()
+      assert snake.direction == mapping[key]
 
 def test_simulate():
     snake = Snake()
